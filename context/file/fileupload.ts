@@ -3,7 +3,7 @@
 import { auth } from "../auth/auth";
 import { connectToDatabase } from "../database";
 import { File } from "../model/file-model";
-
+import { unstable_noStore as noStore } from "next/cache";
 
 import { User } from "../model/usermodel";
 
@@ -71,6 +71,7 @@ const data = [{
     
   ];
 export const fileupload = async ({ urls, filename, lastWord }: props) => {
+  
     try {
         const user = await auth();
         const email = user?.user?.email;
@@ -101,6 +102,7 @@ export const fileupload = async ({ urls, filename, lastWord }: props) => {
     }
 }
 export const getallfiles = async ()=>{
+  noStore();
     try {
         await connectToDatabase();
         const files = await File.find();
