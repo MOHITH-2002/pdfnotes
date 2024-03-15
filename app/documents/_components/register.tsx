@@ -69,7 +69,7 @@ const form = useForm<z.infer<typeof formSchema>>({
             <LogIn /> 
             </Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[425px]">
+      <DialogContent className="max-w-[300px] rounded-md md:max-w-[425px]">
         <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
         <FormField
