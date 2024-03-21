@@ -30,7 +30,12 @@ const FileSchema = new mongoose.Schema(
         type:String,
         required: true,
         unique: true,
+    },
+    pathname:{
+        type:String,
+        required: true,
     }
+
 },
   { timestamps: true }
 );

@@ -11,6 +11,7 @@ interface props{
      urls: string;
      filename: string;
      lastWord: string;
+     pathname: string;
 }
 const data = [{
       type:"pdf",
@@ -68,9 +69,13 @@ const data = [{
       type:"txt",
       url:"https://res.cloudinary.com/dpgxmmowq/image/upload/v1709913778/txt-file_u3ssbk.png"
     },
+    {
+      type:"slx",
+      url:"https://res.cloudinary.com/dpgxmmowq/image/upload/v1711005172/621f8fa9654abf384c30d63d_rmkht5.png"
+    },
     
   ];
-export const fileupload = async ({ urls, filename, lastWord }: props) => {
+export const fileupload = async ({ urls, filename, lastWord,pathname }: props) => {
   
     try {
         const user = await auth();
@@ -93,6 +98,7 @@ export const fileupload = async ({ urls, filename, lastWord }: props) => {
             imageurl: imageUrl,
             email,
             fileUrl: urls,
+            pathname
         };
 
         await File.create(fileData);
@@ -104,6 +110,8 @@ export const fileupload = async ({ urls, filename, lastWord }: props) => {
 export const getallfiles = async ()=>{
   noStore();
     try {
+       const user = await auth();
+        const email = user?.user?.email;
         await connectToDatabase();
         const files = await File.find();
         // console.log(files);/
@@ -114,6 +122,30 @@ export const getallfiles = async ()=>{
         console.log(error);
         
     }
+}
+export const getfiles = async ({pathname}: any) => {
+  noStore(); // Assuming this is a placeholder function or variable
+
+  try {
+    const user = await auth();
+    const email = user?.user?.email;
+    await connectToDatabase();
+    
+
+    // Find files for the specific email and pathname
+    const files = await File.find({ email: email, pathname: pathname });
+
+    
+    if(files){
+
+      return JSON.parse(JSON.stringify(files));
+    }else{
+      return "no files"
+    }
+  } catch (error) {
+    console.log(error);
+    throw error; // Re-throw the error to handle it outside of this function
+  }
 }
 export const deletefiles = async ({id}:any)=>{
     

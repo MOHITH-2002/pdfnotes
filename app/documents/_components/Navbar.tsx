@@ -2,6 +2,7 @@ import React from 'react'
 import Logout from './logout'
 import { UploadFile } from './Uploadfile'
 import { Register } from './register'
+import CreateFolder from './create-folder'
 
 const Navbar = () => {
   return (
@@ -19,6 +20,7 @@ const Navbar = () => {
     <div className='flex gap-3'>
         <UploadFile/>
       
+        <CreateFolder/>
         <Register/>
         <Logout/>
     </div>

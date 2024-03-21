@@ -7,15 +7,19 @@ import {
 import { useEdgeStore } from '@/lib/edgestore';
 import { useEffect, useState } from 'react';
 
-import { url } from 'inspector';
+
 
 import { fileupload } from '@/context/file/fileupload';
+import { usePathname } from 'next/navigation';
 
 
 export  function MultiFileDropzoneUsage() {
   const [fileStates, setFileStates] = useState<FileState[]>([]);
   const { edgestore } = useEdgeStore();
-  // const [urls, setUrls] = useState<string[]>([]);
+
+  const pathname = usePathname();
+  console.log(pathname);
+  
 
   function updateFileProgress(key: string, progress: FileState['progress']) {
     setFileStates((fileStates) => {
@@ -62,7 +66,7 @@ export  function MultiFileDropzoneUsage() {
     // Get the last word after splitting
     const lastWord = filenameParts[filenameParts.length - 1];
 
-                await fileupload({urls:res.url,filename:addedFileState.file.name,lastWord:lastWord});
+                await fileupload({urls:res.url,filename:addedFileState.file.name,lastWord:lastWord,pathname:pathname});
                 
                 
 
