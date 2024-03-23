@@ -1,18 +1,27 @@
 "use client"
 import { getfiles } from '@/context/file/fileupload';
 import React, { useEffect, useState } from 'react';
-import { usePathname } from 'next/navigation';
+import { usePathname, useSearchParams } from 'next/navigation';
 import Singlecard from '../_components/card/singlecard';
 import { UploadFile } from '../_components/Uploadfile';
 import Image from 'next/image';
 import Link from 'next/link';
 
-const DynamicPage = () => {
+interface props{
+  searchParams:{
+    searched?:string;
+  }
+}
+const DynamicPage = ({searchParams}:props) => {
   const pathname = usePathname();
 
+  
+  
+  
   const [files, setFiles] = useState<any[]>([]);
   const [nofilesfound, setNofilesfound] = useState<boolean>(false);
   const [pathSegments, setPathSegments] = useState<string[]>([]);
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -39,16 +48,18 @@ const DynamicPage = () => {
   }, [pathname]);
 
   return (
-    <div>
-      <div>
+    <>
+    
+      <div className="flex">
         {pathSegments.map((segment, index) => (
-          <span key={index}>
+          <span key={index} >
             <Link href={`/${pathSegments.slice(0, index + 1).join('/')}`} className="text-blue-600 hover:text-blue-400" >
       
                 {segment}
                 
             </Link>
-            {index < pathSegments.length - 1 && <span> / </span>}
+            {index < pathSegments.length - 1 && <> &gt;</>
+}
           </span>
         ))}
       </div>
@@ -61,7 +72,7 @@ const DynamicPage = () => {
       )}
 
       <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-5 mt-8 pb-8">
-        {files.map((file: { _id: string; filename: string; imageurl: string; username: string; email: string; fileUrl: string; }) => (
+        {files.filter((item)=>searchParams?.searched === undefined ? item : item.filename.includes(searchParams?.searched)).map((file: { _id: string; filename: string; imageurl: string; username: string; email: string; fileUrl: string; }) => (
           <Singlecard
             key={file._id}
             id={file._id}
@@ -73,7 +84,7 @@ const DynamicPage = () => {
           />
         ))}
       </div>
-    </div>
+    </>
   );
 };
 

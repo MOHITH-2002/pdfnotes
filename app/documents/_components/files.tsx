@@ -3,8 +3,14 @@ import { getfiles } from '@/context/file/fileupload';
 import React, { useEffect, useState } from 'react';
 import Singlecard from './card/singlecard';
 
+  interface props{
+  searchParams:{
+    searched?:string;
+  },
+  pathname:string
+}
 
-const Files = ({pathname}: any) => {
+const Files = ({pathname,searchParams}: props) => {
   const [files, setFiles] = useState<any[]>([]);
 
   useEffect(() => {
@@ -24,7 +30,7 @@ const Files = ({pathname}: any) => {
   return (
     <div>
       <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-5 mt-8 pb-8">
-        {files.map((file: { _id: string; filename: string; imageurl: string; username: string; email: string; fileUrl: string; }) => (
+        {files.filter((item)=>searchParams?.searched === undefined ? item : item.filename.includes(searchParams?.searched)).map((file: { _id: string; filename: string; imageurl: string; username: string; email: string; fileUrl: string; }) => (
           <Singlecard
             key={file._id}
             id={file._id}

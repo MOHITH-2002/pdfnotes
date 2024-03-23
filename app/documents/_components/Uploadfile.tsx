@@ -30,12 +30,12 @@ const submit =  () => {
 
       <DialogTrigger asChild>
         
-        <Button variant="outline" className="flex gap-1">
-          <h1 className="hidden md:block">
+        <Button variant="outline" className="flex gap-1 justify-start">
+          <Upload />
+          <h1 className="flex md:hidden lg:flex">
 
           Upload
           </h1>
-          <Upload />
         </Button>
         
       </DialogTrigger>

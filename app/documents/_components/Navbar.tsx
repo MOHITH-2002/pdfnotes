@@ -1,10 +1,15 @@
+
 import React from 'react'
 import Logout from './logout'
 import { UploadFile } from './Uploadfile'
 import { Register } from './register'
 import CreateFolder from './create-folder'
+import SearchWeb from './search'
+import { Hamburger } from './card/hamburger'
+
 
 const Navbar = () => {
+    
   return (
     <div className="w-full h-20 flex justify-between items-center ">
     <div className="flex items-center">
@@ -17,13 +22,19 @@ const Navbar = () => {
 
         </h1>
     </div>
-    <div className='flex gap-3'>
+    <div className='hidden md:flex gap-3'>
+      <SearchWeb/>
         <UploadFile/>
       
         <CreateFolder/>
         <Register/>
         <Logout/>
     </div>
+    <div className='flex md:hidden gap-3'>
+    <SearchWeb/>
+    <Hamburger/>
+    </div>
+    
     </div>
   )
 }

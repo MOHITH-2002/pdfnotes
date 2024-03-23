@@ -2,8 +2,13 @@
 import React from 'react'
 import Foldercard from './card/foldercard';
 import { getAllFolders } from '@/context/folder/folder';
+interface props{
+  searchParams:{
+    searched?:string;
+  }
+}
+const Folders = async ({searchParams}:props) => {
 
-const Folders = async () => {
     const files = await getAllFolders();
 
     return (
@@ -13,7 +18,7 @@ const Folders = async () => {
         
 
     {
-    files?.map((file: { _id: string; folderName: string;})=>(
+    files.filter((item: { folderName: string | string[]; })=>searchParams?.searched === undefined ? item : item.folderName.includes(searchParams?.searched))?.map((file: { _id: string; folderName: string;})=>(
             
             
         <Foldercard

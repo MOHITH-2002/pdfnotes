@@ -60,13 +60,13 @@ const form = useForm<z.infer<typeof formSchema>>({
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant="outline" className="flex gap-1">
+        <Button variant="outline" className="flex gap-1 justify-start">
             
-                <h1 className="hidden md:block">
+            <LogIn /> 
+                <h1 className="flex md:hidden lg:flex">
                     Register
                     </h1>
             
-            <LogIn /> 
             </Button>
       </DialogTrigger>
       <DialogContent className="max-w-[300px] rounded-md md:max-w-[425px]">

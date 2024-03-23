@@ -8,9 +8,9 @@ import { Button } from '@/components/ui/button';
 export default async function Logout() {
 
   return (
-    <div className="flex h-full flex-col">
+    <div className="flex  flex-col">
 
-      <div className="flex grow flex-row justify-between space-x-2 md:flex-col md:space-x-0 md:space-y-2">
+      
   
         
         <form
@@ -19,12 +19,12 @@ export default async function Logout() {
             await signOut();
           }}
         >
-          <Button  variant="outline" className="flex  hover:bg-red-300  items-center justify-center gap-2 rounded-md  text-sm font-medium   md:flex-none md:justify-start ">
+          <Button  variant="outline" className="flex w-full hover:bg-red-300  items-center  gap-2 rounded-md  text-sm font-medium justify-start ">
             <PowerIcon className="w-4" />
-            <div className="hidden md:block">Sign Out</div>
+            <div className="flex md:hidden lg:block">Sign Out</div>
           </Button>
         </form>
       </div>
-    </div>
+    
   );
 }
