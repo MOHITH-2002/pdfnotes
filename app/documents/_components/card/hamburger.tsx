@@ -2,9 +2,7 @@ import { Button } from "@/components/ui/button"
 
 import {
   Sheet,
-
   SheetContent,
-
   SheetTrigger,
 } from "@/components/ui/sheet"
 import { UploadFile } from "../Uploadfile"
@@ -32,8 +30,10 @@ export function Hamburger() {
         <Register/>
         <Logout/>
     </div>
-        
+
+    
       </SheetContent>
+        
     </Sheet>
   )
 }
