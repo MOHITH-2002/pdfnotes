@@ -1,9 +1,16 @@
-FROM node:20-alpine3.18 AS builder
+FROM node:20-alpine3.18
+
 WORKDIR /app
 
 COPY package*.json ./
-RUN npm install --production
+
+# Install dependencies including dev dependencies for build
+RUN npm install
+
 COPY . .
+
 RUN npm run build
+
 EXPOSE 3000
-CMD [ "npm","run","start" ]
+
+CMD ["npm", "run", "start"]
