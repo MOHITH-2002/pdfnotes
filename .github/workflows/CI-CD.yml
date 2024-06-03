@@ -21,23 +21,23 @@ jobs:
           echo "RESEND_API_KEY=${{ secrets.RESEND_API_KEY }}" >> .env
 
       - name: Build docker image
-        run: docker build -t mohith-ba/pdf-app .
+        run: docker build -t mohith9353/pdf-app .
 
       - name: Login to Docker Hub
         run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Publish image to Docker Hub
-        run: docker push mohith-ba/pdf-app:latest
+        run: docker push mohith9353/pdf-app:latest
 
   deploy:
     needs: build
     runs-on: self-hosted
     steps:
       - name: Pull image from Docker Hub
-        run: docker pull mohith-ba/pdf-app:latest
+        run: docker pull mohith9353/pdf-app:latest
 
       - name: Delete old container
         run: docker rm -f pdf-app-container
 
       - name: Run docker container
-        run: docker run -d -p 3000:3000 --name pdf-app-container mohith-ba/pdf-app
+        run: docker run -d -p 3000:3000 --name pdf-app-container mohith9353/pdf-app
