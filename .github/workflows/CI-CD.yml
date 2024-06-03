@@ -3,20 +3,29 @@ name: Deploying pdf-notes web application
 on:
   push:
     branches:
-    - main
+      - main
 
 jobs:
   build:
-  runs-on: ubuntu-latest
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout Source
         uses: actions/checkout@v4
+        
       - name: Create .env file
-        run: echo "DATABASE_URL=${{ secrets.DATABASE_URL }}" >> .env && echo "AUTH_SECRET=${{ secrets.AUTH_SECRET }}" >> .env && echo "EDGE_STORE_ACCESS_KEY=${{ secrets.EDGE_STORE_ACCESS_KEY }}" >> .env && echo "EDGE_STORE_SECRET_KEY=${{ secrets.EDGE_STORE_SECRET_KEY }}" >> .env && echo "RESEND_API_KEY=${{ secrets.RESEND_API_KEY }}" >> .env
+        run: |
+          echo "DATABASE_URL=${{ secrets.DATABASE_URL }}" >> .env
+          echo "AUTH_SECRET=${{ secrets.AUTH_SECRET }}" >> .env
+          echo "EDGE_STORE_ACCESS_KEY=${{ secrets.EDGE_STORE_ACCESS_KEY }}" >> .env
+          echo "EDGE_STORE_SECRET_KEY=${{ secrets.EDGE_STORE_SECRET_KEY }}" >> .env
+          echo "RESEND_API_KEY=${{ secrets.RESEND_API_KEY }}" >> .env
+      
       - name: Build docker image
         run: docker build -t mohith-ba/pdf-app .
+        
       - name: Login to docker hub
         run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+        
       - name: Publish image to docker hub
         run: docker push mohith-ba/pdf-app:latest
 
@@ -26,7 +35,9 @@ jobs:
     steps:
       - name: Pull image from docker hub
         run: docker pull mohith-ba/pdf-app:latest
+        
       - name: Delete old container
         run: docker rm -f pdf-app-container  
+        
       - name: Run docker container
-        run: docker run -d -p 3000:3000 --name pdf-app-container mohith-ba/pdf-app 
+        run: docker run -d -p 3000:3000 --name pdf-app-container mohith-ba/pdf-app
