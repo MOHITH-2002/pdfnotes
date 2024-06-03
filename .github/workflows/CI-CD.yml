@@ -37,7 +37,7 @@ jobs:
         run: docker pull mohith9353/pdf-app:latest
 
       - name: Delete old container
-        run: docker rm -f pdf-app-container
+        run: docker rm -f pdf-app-container || true
 
       - name: Run docker container
-        run: docker run -d -p 3000:3000 --name pdf-app-container mohith9353/pdf-app
+        run: docker run -d -p 3000:3000 --name pdf-app-container mohith9353/pdf-app:latest
