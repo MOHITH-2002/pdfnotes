@@ -33,11 +33,9 @@ jobs:
     needs: build
     runs-on: self-hosted
     steps:
-      - name: Pull image from Docker Hub
+      - name: Pull image from docker hub
         run: docker pull mohith9353/pdf-app:latest
-
       - name: Delete old container
-        run: docker rm -f pdf-app-container || true
-
+        run: docker rm -f pdf-app-container  
       - name: Run docker container
-        run: docker run -d -p 3000:3000 --name pdf-app-container mohith9353/pdf-app:latest
+        run: docker run -d -p 3000:3000 --name pdf-app-container mohith9353/pdf-app 
